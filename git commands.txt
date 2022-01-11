@@ -1,0 +1,140 @@
+
+Git Commands:
+
+1.git init : initialize a git repo : check	
+2.git status : checks the status of the git repo	: check
+3.git add . : adds all the file to the staging area	:check	
+4.git add index.html : adds the specific file to the staging area.	:check
+5.git commit -m "commit message" : changes commited, i.e stored as a version.	:check
+6.git log : tracks all the commits made in the project.	: check
+7.git log --oneline : a short syntax of tracked commit : check
+8.git commit -a -m "commit message" : skips the staging area of a tracked file,-a means add to staging area( for a newly added file to the git repo,i.e an untracked file, staging is mandatory)
+9.git diff : shows all the modified changes from the last commit , to the present working directory
+10.git diff --staged : shows the differnce b/w the last commit and the current files in staging area.
+11- .gitignore : keep all the file names inside this file which u want to ignore, u can also use regular expression , for eg; to ignore all the log files, ending with .log extension, u can use: *.log , if a folder then eg: abc/
+12.git rm filepath , git rm -f filepath (-f stands for forcefully), git mv source destination : git will stage the changes made for commit, else u have to do it manually.
+13.git rm --cached filename : to untrack the file that is already tracked, basically it will delete that file, and if it gets generated at a later point of time, it will put it in the .gitignore folder.
+14.git restore --staged filename.txt : unstage the changes which u have staged.
+15.git checkout -- contact.html : rollback the file to the last commit ( danger : if u haven't staged ur code, before executing this command , all ur code would be lost, and u wouldn't be able to get any of it back, so it is better to first stage & commit, even if there is some bug, so u can rollback and debug, rather than losing all the code)
+16.git checkout -f : rollback to the previous commit, but if u haven't staged& committed ur current code, u will lose all ur files.
+17.git config --global alias.st status : creates an alias name for the command, for eg: if u now write git st instead of git status, it will do the same thing 
+18.git branch: check all the branches in your project
+19.git branch -v: check the last commit in all your branches
+20.git branch branchname : create a branch
+21.git checkout branchname: move to a branch, if it exists
+22.git checkout -b branchname : create a new branch (-b) and move to that branch immediately.
+
+HEAD points to the latest commit of the branch u are currently working on
+
+git log --oneline --graph --all : shows the representation of all the commits in all branches
+u can not switch between branches if there is any change that is uncommitted.
+
+git branch -d branchname ; to delete a merged branch or if there are no changes in the branch
+git branch -D branchname : forcefully delete a branch.
+can not delete the current working branch, switch to a different branch to delete it.
+
+Merging:
+first checkout to master or the brach u want ur diverted branch to merge with, then;
+git merge branchname :basic merging { when master is unchanged after creating a different branch)
+git merge branchname : Merge made by the 'recursive' strategy.
+
+Recursive merging or 3-way merge : Will trace back to the ancestor commit from where both branches had same code, will then track the changes in both the branches and merge the branches, and create a new commit, the commit would be pointing to the last commit of both the branches.{Easy to understand diagramtically}
+use esc :wq to exit
+
+Merge conflicts: when the incoming branch tries to change the content of the current branch. Then we have a merge conflict. We need to resolve the conflict , and then commit in order to resolve the conflict. {We can either accept the incoming change, keep the current change, or change the current change}
+
+Rebase:eg: rebase branch experiment with main, need to be present in the experiment branch, then.
+git rebase main
+rebase moves the commit in the experiment branch with the main branch, in a linear manner, with new commit id's, and deletes the commit from the experiment branch, and then we need to shift the master pointer by doing: git merge experiment to merge the changes with the master branch.
+Rebase helps to maintain a clean commit history.
+
+Git&Github:
+
+Fubdamental Differnce: Git is a distributed version control system, while Github is a cloud service to store&host ur code that uses git.
+
+Github: Github lets u store ur git repositories, and also helps other developers contribute to ur repositories, and many other features.
+
+Central repostory: If 2 or more dev or working on a project, u have individual local repository to work on ur changes, and u need to push ur code on to the central repository to let the other dev see ur changes/work on them by pulling the code from the central repo.
+
+Creating a Github repo: Click on + icon and create a new repository on Github, give it a name, desc, and initialize readme.md& other files, then do the setup with ur local repo via the following commands:
+
+If ur working on a new project then setup the Github repo on ur local system:
+1.Create a local folder in ur system.
+2.Go to git bash
+3. git init: initialize the repo.
+4.git add README.md : add the readme file to the staging area.
+5.git commit -m "first commit" : make ur first commit, by commiting the readme file
+6.git branch -M main: rename ur master branch to main [ Optional ]
+7.git remote add origin https://github.com/dev-puneet/xyz.git : make a connection of ur local repo with the github repo with the central repo on Github, origin is the name of the remote, u can also give any other name, a remote is basically used to push& pull the code from local repo & central repo.
+8.git push -u origin main: push the code in ur local repo to the central repo. : 
+
+*while pushing the code from ur local repo to the github repo, use the branch in ur local
+
+If u already have an existing repo, then:
+1.Set up the remote: git remote add origin https://github.com/dev-puneet/xyz.git
+2.Rename the master branch: git branch -M main [ Optional ]
+3.Push ur local repo to the central repo: git push -u origin main
+ 
+Clone : Download a repo from Github to ur local system, the command for it is
+git clone https://github.com/airbnb/javascript.git
+Then u can work with the project in ur own local system.
+
+Fetch : git fetch origin master : fetches the changes from the remote repo, and saves in the local directory, but does not reflect in working directory
+to reflect in working directory do : git merge origin/master
+
+Pull: git fetch+git merge , it directly saves the changes in the Working directory. But there can be merge conflicts, if the same file has been changed by 1 or more dev.
+git pull origin master
+*while working with git fetch or git pull use the branch name of ur github repo.
+
+Fork : when u want to work on someone else's repo, contribute to it, u first need to fork it to ur account
+Then clone the repo to ur local repo, and can make changes to it, and push the changes to ur forked repo.
+After that u can create a pull request, and the maintainer of that repo will get a merge request notification, he/she can give a comment back, decline or accept ur pull request and merge the changes in his repo.
+
+Github Issues: Github issues can be created by the maintainer or any dev, with a label, to specify some issue or work that can be done on the project by any dev.
+
+Sync git&Github repo with Upstream: Upstream is a repo from where u have forked into ur own profile. U can keep in sync by creating a remote to the upstream, and then pull the code from the upstream.
+
+Additional Git commands:
+
+1.git show c4y2xz : shows the changes in that commit
+2.git stash: stores ur changes in a stash list in the form of a stack, u can restore from the stash by 
+3.git stash apply stash@{0} where 0 is the index position in the stash list.
+4.git clean -f -d: get rid of the changes in the files u have made.
+5.git commit --amend : by pressing esc+I can change the previous commit msg
+Also if u have a change in the staged area, by doing git commit --amend, u can change the changes in the previous commit.
+
+
+Rewriting History:
+
+1.git checkout commitid : to go to any commit in the past, the HEAD pointer will then switch to that commit , which was previously pointing to the latest commit same as master, as we were in master branch.
+2.git switch - : to go back to the present state, i.e take backn the HEAD pointer from the past commit to the latest commit.
+To go back in history:
+3.git commit commitid
+U can also then make some changes in that commit, and then stage&commit that changes, but with a condition that the new changes need to be committed in a new branch, because u cannot append in b/w the commits of master branch.
+To do that: git switch -c branchname
+And then to go back to the present state: git checkout master.
+Reverting a commit: git revert commitid: it will undo the changes made in that commit, and create a new commit.
+4.git revert -n commitid: it will undo the changes, but will not create a new commit, also u can reverse ur action by git revert --abort
+To delete all the top commits from a given commit id
+5.git reset --soft commitid  & git clean -f -d 
+6.git reset --hard commitid
+
+
+
+Cerificate no: UC-bc1b1bfc-0c10-41b4-8125-90704ad0d8ff
+Certificate url: ude.my/UC-bc1b1bfc-0c10-41b4-8125-90704ad0d8ff
+
+jo bhi branch push karni hai,switch to that branch first and then push it with remote
+git push origin development
+
+jo bhi branch local me pull karni hai, pehle us branch me chale jao in local repo, and then do
+git pull
+
+if ur not able to delete a branch, could be ur in that branch or u have not merged the changes of that branch.
+git branch -d branchname
+to delte from github repo; git push origin --delete branchname
+
+to rename a branch : git branch -m oldbranchname newbanchname
+to rename a branch in remote repo: 1. delete the branch : git push origin --delte oldbranchname
+				   2. push the new branch: git checkout newbranchname
+							   git push origin newbranchname
